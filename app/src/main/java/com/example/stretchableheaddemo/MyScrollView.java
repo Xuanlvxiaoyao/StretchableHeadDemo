@@ -19,6 +19,9 @@ public class MyScrollView extends ScrollView {
     public DisplayMetrics dm;
 
     SetHeightListener setHeightListener;
+    private float y1;
+    private float y3;
+
     public MyScrollView(Context context) {
         super(context);
         getScreenWidth(context);
@@ -51,10 +54,12 @@ public class MyScrollView extends ScrollView {
                 break;
             case MotionEvent.ACTION_MOVE:
                 yMove = ev.getY();
-                float y1 = yMove - yDown;
-                if(y1>0){
-                    if(y1<=200){
-                        setHeightListener.setHeight(y1);
+                y1 = yMove - yDown;
+                if(y1 >0){
+                    if(y1 <=300){
+
+                        y3 = y1;
+                        setHeightListener.setHeight(y1,false);
                     }
                 }
                 break;
@@ -62,7 +67,7 @@ public class MyScrollView extends ScrollView {
                 yUp = ev.getY();
                 float y2 = yUp - yDown;
                 if(y2>0){
-                    setHeightListener.setHeight(201);
+                    setHeightListener.setHeight(y3,true);
                 }
                 break;
         }
@@ -70,6 +75,6 @@ public class MyScrollView extends ScrollView {
     }
 
     public interface SetHeightListener{
-        void setHeight(float height);
+        void setHeight(float height,boolean flag);
     }
 }

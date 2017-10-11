@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MyScrollView.SetH
     }
 
     @Override
-    public void setHeight(final float height) {
+    public void setHeight(final float height,boolean flag) {
         newHeight=oldHeight+height;
         newWeight=myScrollView.dm.widthPixels+height*0.3f;
 
@@ -64,13 +64,13 @@ public class MainActivity extends AppCompatActivity implements MyScrollView.SetH
         layoutParams.width= (int) newWeight;
         iv.setLayoutParams(layoutParams);
 
-        if(height==201){
+        if(flag){
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         while (newHeight>oldHeight){
-                            Thread.sleep(5);
+                            Thread.sleep(10);
                             newHeight-=10;
                             newWeight-=3;
                             runOnUiThread(new Runnable() {
